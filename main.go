@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io"
+	"net/http"
 
 	"golang.org/x/net/websocket"
 )
@@ -37,9 +38,13 @@ func (s *Server) readLoop(ws *websocket.Conn) {
 		}
 		msg := buf[:n]
 		fmt.Println(string(msg))
+
+		ws.Write([]byte("Thank you for the message!"))
 	}
 }
 
 func main() {
-
+	server := NewServer()
+	http.Handle("/ws", websocket.Handler(server.handleWS))
+	http.ListenAndServe(":3000", nil)
 }
