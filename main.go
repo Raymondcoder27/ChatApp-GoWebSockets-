@@ -56,5 +56,5 @@ func (s *Server) broadcast(b []byte) {
 func main() {
 	server := NewServer()
 	http.Handle("/ws", websocket.Handler(server.handleWS))
-	http.ListenAndServeTLS(":3000", "cert.pem", "key.pem", nil)
+	http.ListenAndServe(":3000", nil)
 }
