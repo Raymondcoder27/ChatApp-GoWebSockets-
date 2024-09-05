@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+
+	"golang.org/x/net/websocket"
+)
 
 type Server struct {
 	conns map[*websocket.Conn]bool
@@ -19,8 +23,10 @@ func (s *Server) handleWS(ws *websocket.Conn) {
 	s.readLoop(ws)
 }
 
-func readLoop(ws *websocket.Conn) {
+func (s *Server) readLoop(ws *websocket.Conn) {
+	for {
 
+	}
 }
 
 func main() {
