@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"time"
 
 	"golang.org/x/net/websocket"
 )
@@ -17,6 +18,17 @@ func NewServer() *Server {
 		conns: make(map[*websocket.Conn]bool),
 	}
 }
+
+func (s *Server) handleOrderBook(ws *websocket.Conn) {
+	fmt.Println("New incoming connection from server to order book feed:", ws.RemoteAddr())
+
+	for {
+		payload := fmt.Sprintf("orderbook data -> %d\n", time.Now().UnixNano())
+		ws.Write([]byte(payload))
+		time.Sleep(time.Second * 2)
+	}
+}
+
 func (s *Server) handleWS(ws *websocket.Conn) {
 	fmt.Println("New incoming connection from client.", ws.RemoteAddr())
 
