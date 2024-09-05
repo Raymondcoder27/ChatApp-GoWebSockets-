@@ -68,5 +68,6 @@ func (s *Server) broadcast(b []byte) {
 func main() {
 	server := NewServer()
 	http.Handle("/ws", websocket.Handler(server.handleWS))
+	http.Handle("/orderbookfeed", websocket.Handler(server.handleOrderBook))
 	http.ListenAndServe(":3000", nil)
 }
